@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UsersActivity">
+
+  <ImageView
+      android:id="@+id/image"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:scaleType="centerCrop"/>
+
+  <TextView
+      android:id="@+id/user"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:gravity="center"
+      android:padding="10dp"
+      android:textSize="24sp"
+      android:textColor="@android:color/white"/>
+
+  <ListView
+      android:id="@+id/slot_list_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/user"/>
+
+</RelativeLayout>

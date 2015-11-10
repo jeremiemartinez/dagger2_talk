@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">Dagger2 @Droidcon</string>
+  <string name="action_add">Add</string>
+  <string name="error_http">An error occurred…</string>
+  <string name="hint_title">Enter a title…</string>
+  <string name="new_slot_title">New slot</string>
+  <string name="slots_title">Slots</string>
+  <string name="speakers_title">Speakers</string>
+</resources>
