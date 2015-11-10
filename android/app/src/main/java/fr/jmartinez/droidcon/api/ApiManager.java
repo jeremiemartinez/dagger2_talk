@@ -1,6 +1,7 @@
 package fr.jmartinez.droidcon.api;
 
 import android.widget.Toast;
+import com.squareup.okhttp.OkHttpClient;
 import de.greenrobot.event.EventBus;
 import fr.jmartinez.droidcon.BuildConfig;
 import fr.jmartinez.droidcon.DroidconApplication;
@@ -12,29 +13,24 @@ import fr.jmartinez.droidcon.model.Slot;
 import fr.jmartinez.droidcon.model.Speaker;
 import fr.jmartinez.droidcon.model.SpeakerDetails;
 import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Client;
+import retrofit.client.OkClient;
 import retrofit.client.Response;
 import retrofit.converter.Converter;
+import retrofit.converter.JacksonConverter;
 import timber.log.Timber;
 
-@Singleton
 public class ApiManager {
 
-  private final Client client;
-  private final Converter converter;
-  private final EventBus bus;
+  private final Client client = new OkClient(new OkHttpClient());
+  private final Converter converter = new JacksonConverter();
+  private final EventBus bus = EventBus.getDefault();
   private final Api api;
 
-  @Inject
-  public ApiManager(Client client, Converter converter, EventBus bus) {
-    this.client = client;
-    this.converter = converter;
-    this.bus = bus;
+  public ApiManager() {
     RestAdapter restAdapter = new RestAdapter.Builder() //
         .setEndpoint(BuildConfig.URL_SERVER) //
         .setConverter(this.converter) //

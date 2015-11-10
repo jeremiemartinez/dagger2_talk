@@ -9,19 +9,17 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import de.greenrobot.event.EventBus;
-import fr.jmartinez.droidcon.DroidconApplication;
 import fr.jmartinez.droidcon.R;
 import fr.jmartinez.droidcon.api.event.SpeakersEvent;
 import fr.jmartinez.droidcon.model.Speaker;
 import fr.jmartinez.droidcon.speaker.SpeakerManager;
-import javax.inject.Inject;
 
 public class SpeakersActivity extends AppCompatActivity {
 
   @Bind(R.id.user_list_view) ListView listView;
 
-  @Inject SpeakerManager speakerManager;
-  @Inject EventBus bus;
+  private SpeakerManager speakerManager;
+  private EventBus bus;
 
   private ArrayAdapter<Speaker> adapter;
 
@@ -30,9 +28,10 @@ public class SpeakersActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.users_activity);
     ButterKnife.bind(this);
-    DroidconApplication.app().getComponent().inject(this);
     adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
     listView.setAdapter(adapter);
+    speakerManager = new SpeakerManager();
+    bus = EventBus.getDefault();
   }
 
   @Override

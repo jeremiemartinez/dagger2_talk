@@ -9,7 +9,6 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
-import fr.jmartinez.droidcon.DroidconApplication;
 import fr.jmartinez.droidcon.R;
 import fr.jmartinez.droidcon.api.event.CreateSlotEvent;
 import fr.jmartinez.droidcon.api.event.SlotsEvent;
@@ -17,7 +16,6 @@ import fr.jmartinez.droidcon.api.event.SpeakerDetailsEvent;
 import fr.jmartinez.droidcon.model.Slot;
 import fr.jmartinez.droidcon.slot.SlotManager;
 import fr.jmartinez.droidcon.speaker.SpeakerManager;
-import javax.inject.Inject;
 
 public class SlotsActivity extends AppCompatActivity {
 
@@ -27,9 +25,9 @@ public class SlotsActivity extends AppCompatActivity {
   @Bind(R.id.user) TextView userView;
   @Bind(R.id.image) ImageView imageView;
 
-  @Inject SpeakerManager speakerManager;
-  @Inject SlotManager slotManager;
-  @Inject EventBus bus;
+  private SpeakerManager speakerManager;
+  private SlotManager slotManager;
+  private EventBus bus;
 
   private ArrayAdapter<Slot> adapter;
   private String speaker;
@@ -39,11 +37,13 @@ public class SlotsActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.slots_activity);
     ButterKnife.bind(this);
-    DroidconApplication.app().getComponent().inject(this);
     speaker = getIntent().getStringExtra(SPEAKER_EXTRA);
     adapter = new ArrayAdapter<>(this, R.layout.slot_item_view);
     listView.setAdapter(adapter);
     userView.setText(speaker);
+    speakerManager = new SpeakerManager();
+    slotManager = new SlotManager();
+    bus = EventBus.getDefault();
   }
 
   @Override
